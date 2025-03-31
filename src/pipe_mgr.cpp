@@ -66,7 +66,7 @@ void PipeMgr::print_stats() {
 doca_error_t PipeMgr::tx_root_drop_pipe_create() {
     assert(pf_port);
     doca_error_t result = DOCA_SUCCESS;
-    int nr_entries = 8; // must be pow2
+    int nr_entries = 128; // must be pow2
 
     doca_flow_fwd fwd_changeable;
     fwd_changeable.type = DOCA_FLOW_FWD_CHANGEABLE;
