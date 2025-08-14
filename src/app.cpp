@@ -21,10 +21,10 @@ OffloadApp::~OffloadApp() {
 doca_error_t OffloadApp::init() {
     DOCA_LOG_INFO("Initializing DOCA");
 
-    doca_error_t result = init_doca_flow();
+    doca_error_t result = DOCA_SUCCESS;
     IF_SUCCESS(result, init_dpdk());
     IF_SUCCESS(result, init_dev());
-    // IF_SUCCESS(result, init_dpdk_queues_ports());
+    IF_SUCCESS(result, init_doca_flow());
 
     IF_SUCCESS(result, start_port(pf_port_id, pf_dev, &pf_port));
     IF_SUCCESS(result, start_port(vf_port_id, nullptr, &vf_port));
@@ -96,6 +96,7 @@ doca_error_t OffloadApp::start_port(uint16_t port_id, doca_dev *port_dev, doca_f
     IF_SUCCESS(result, doca_flow_port_cfg_set_devargs(port_cfg, port_id_str.c_str()));
     IF_SUCCESS(result, doca_flow_port_cfg_set_dev(port_cfg, port_dev));
     IF_SUCCESS(result, doca_flow_port_cfg_set_actions_mem_size(port_cfg, 1024));
+    IF_SUCCESS(result, doca_flow_port_cfg_set_port_id(port_cfg, port_id));
     if (port_dev) {
         IF_SUCCESS(result, doca_flow_port_cfg_set_operation_state(port_cfg, DOCA_FLOW_PORT_OPERATION_STATE_ACTIVE));
     }

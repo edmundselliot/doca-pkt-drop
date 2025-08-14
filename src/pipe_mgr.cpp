@@ -152,10 +152,10 @@ doca_error_t PipeMgr::rx_root_pipe_create() {
         doca_flow_pipe_cfg_destroy(pipe_cfg);
 
     struct doca_flow_match match_from_vf = {};
-    match_from_vf.parser_meta.port_meta = vf_port_id;
+    match_from_vf.parser_meta.port_id = vf_port_id;
 
     struct doca_flow_match match_from_pf = {};
-    match_from_pf.parser_meta.port_meta = pf_port_id;
+    match_from_pf.parser_meta.port_id = pf_port_id;
 
     struct doca_flow_fwd fwd_tx = {};
     fwd_tx.type = DOCA_FLOW_FWD_PIPE;
